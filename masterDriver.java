@@ -14,10 +14,70 @@ public class masterDriver {
 
 	public static void main(String[] args){
 		printGreeting();
-
-
-
+		Scanner scanner = new Scanner(System.in);
+		String answer = scanner.nextLine();
+		
+		while(!answer.equals("Y")&&!answer.equals("N")){
+			System.err.println("\nPlease type a valid answer");
+			answer = scanner.nextLine();
+		}
+		
+		if(answer.equals("Y")){
+			initializeGame();				//initialize key
+			System.out.println("Type in the characters for your guess and press enter.");
+			System.out.println("Enter guess: ");
+			answer=scanner.nextLine();
+			if (checkValid(answer)) {	
+				userGuess=new guess(answer);
+				guessesLeft--;
+				playRound(answer);			//process guess
+			}
+			else if(answer.equals("history")) printHistory();
+			else System.err.println(" --> INVALID GUESS\n");
+		}
+		
+		else {
+			System.out.println("Thank you for playing mastermind");
+			scanner.close();
+			return;
+		}
+		
+		while(true){
+			System.out.println("\nType in the characters for your guess and press enter.");
+			System.out.println("You have "+guessesLeft+ " guesses left.");
+			System.out.println("Enter next guess: ");
+			answer=scanner.nextLine();
+			if (checkValid(answer)) {
+				guessesLeft--;
+				if(userGuess==null) userGuess=new guess(answer);
+				playRound(answer);				//process guess
+			}
+			else if(answer.equals("history")) printHistory();
+			else System.err.println(" --> INVALID GUESS\n");
+			if(gameOver==true||guessesLeft==0) break;		//the game is over when you're out of guesses or guess the correct code	
+		}
+		
+		if(winner) System.out.println("\nCongratulations, You Won!");
+		else {
+			System.out.println("\nSorry, You Lose");
+			System.out.println("Correct Combination: " +keyCode.getCombination());
+		}
+	
+	scanner.close();
 }
+
+//checks for a valid color input
+	private static boolean checkValid(String answer) {
+		if (answer.length() != 4) return false;
+		for (int i=0; i<4; i++) {
+			if (answer.charAt(i) != 'R' && answer.charAt(i) != 'B' 
+					&& answer.charAt(i) != 'O' && answer.charAt(i) != 'Y' 
+					&& answer.charAt(i) != 'G' && answer.charAt(i) != 'P') return false;
+		}
+		return true;
+	}
+
+
 
 //method updates the state of the game based on the user input
 	private static void playRound(String answer) {
@@ -54,6 +114,20 @@ public class masterDriver {
 		}
 		keyCode =new guess(key);		         //instantiate the code as a guess type
 	}
+
+//cycles through the global answer history
+	public static void printHistory(){
+		System.out.println("History:");
+		
+		for(int i=11;i>=guessesLeft;i--){
+			if(answerHistory[i]!=null) {
+				System.out.println("Guess:"+ answerHistory[i].getCombination());
+				System.out.println("Number of Black Pegs: "+ answerHistory[i].getBlackPegs());
+				System.out.println("Number of White Pegs: "+ answerHistory[i].getWhitePegs() + "\n");
+			}	
+		}
+	}
+
 
 //method prints the formatted intro greeting
 	public static void printGreeting(){

@@ -1,0 +1,13 @@
+Assignment 7: Mastermind
+
+Katelyn Kelsey: kmk2669
+Andrei Bonteanu: fab 542
+April 28, 2016
+
+
+Program is a text-based mastermind game. The game functions off of a main driver that 
+utilizes a guess class to compare user inputs to a randomly generated code.
+
+Code was written cooperatively on one computer and periodically uploaded to github:
+
+https://github.com/kmariekelsey/project7.git
