@@ -18,6 +18,26 @@ public class masterDriver {
 
 }
 	
+//method initializes the winning key using the Random class
+	private static void initializeGame(){
+		String key = "";
+		Random randomKey=new Random();
+		
+		System.out.println("\nGenerating secret code ....");
+		
+		for(int i=0; i<4;i++){
+			
+			int randomColor= randomKey.nextInt(6); //random number from 0-5
+			
+			if(randomColor==0) key=key+'B';        //0=B
+			else if(randomColor==1) key=key+'G';   //1=G
+			else if(randomColor==2) key=key+'O';   //2=O
+			else if(randomColor==3) key=key+'P';   //3=P
+			else if(randomColor==4) key=key+'R';   //4=R
+			else key=key+'Y';			 //5=Y
+		}
+		keyCode =new guess(key);		         //instantiate the code as a guess type
+	}
 
 //method prints the formatted intro greeting
 	public static void printGreeting(){

@@ -54,6 +54,11 @@ public class guess {
 		whitePegs=whitePegs-blackPegs; //white pegs can't also be black pegs
 	}
 
+	@Override
+	public boolean equals(Object other){
+		return combination.equals(((guess) other).getCombination());
+	}
+
 	public int getBlackPegs(){
 		return blackPegs;
 	}
