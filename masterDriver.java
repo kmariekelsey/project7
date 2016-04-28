@@ -1,4 +1,5 @@
-
+import java.util.Random;
+import java.util.Scanner;
 
 
 package project7;
@@ -17,6 +18,21 @@ public class masterDriver {
 
 
 }
+
+//method updates the state of the game based on the user input
+	private static void playRound(String answer) {
+		userGuess.updateCombination(answer);		//update the current guess, number of pegs, win/lose
+		
+		System.out.println("Number of Black Pegs: "+ userGuess.getBlackPegs());
+		System.out.println("Number of White Pegs: "+ userGuess.getWhitePegs());
+		answerHistory[guessesLeft]=new guess(userGuess);		//add to try history
+		if(userGuess.getBlackPegs()==4){						//win condition~4 black pegs
+			gameOver=true;
+			winner=true;
+		}
+	}
+
+
 	
 //method initializes the winning key using the Random class
 	private static void initializeGame(){
